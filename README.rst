@@ -98,7 +98,7 @@ License
 
 .. |commits_since_specific_tag_on_master| image:: https://img.shields.io/github/commits-since/boromir674/neural-style-transfer-api/v0.0.1/master?color=blue&logo=github
     :alt: GitHub commits since tagged version (branch)
-    :target: https://github.com/boromir674/neural-style-transfer-api/compare/v0.0.0..master
+    :target: https://github.com/boromir674/neural-style-transfer-api/compare/v0.0.1..master
 
 .. |commits_since_latest_github_release| image:: https://img.shields.io/github/commits-since/boromir674/neural-style-transfer-api/latest?color=blue&logo=semver&sort=semver
     :alt: GitHub commits since latest release (by SemVer)
