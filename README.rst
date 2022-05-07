@@ -35,7 +35,7 @@ Features
    a. **Job Matrix**, spanning different `platform`'s and `python version`'s
 
       1. Platforms: `ubuntu-latest`, `macos-latest`
-      2. Python Iterpreters: `3.6`, `3.7`, `3.8`, `3.9`, `3.10`
+      2. Python Interpreters: `3.6`, `3.7`, `3.8`, `3.9`, `3.10`
    b. **Parallel Job** execution, generated from the `matrix`, that runs the `Test Suite`
 
 
@@ -53,8 +53,9 @@ Using `pip` is the approved way for installing `neural_style_transfer_api`.
 
     python3 -m pip install neural_style_transfer_api
 
+    python3 -m neural_style_transfer_api run-server
 
-TODO demonstrate a use case
+This will run the development server on localhost.
 
 
 License
