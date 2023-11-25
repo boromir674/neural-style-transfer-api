@@ -20,3 +20,5 @@ node_modules
 dependency-graphs/
 test-results/
 uml-diagrams/
+package\.json
+package-lock\.json

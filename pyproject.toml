@@ -1,14 +1,43 @@
-# BUILD
-
 [build-system]
-requires = ["setuptools >= 40.6.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-# TODO switch setuptools build backend to something like 'poetry' or 'build'
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 
+[tool.poetry]
+name = "neural-style-transfer-api"
+version = "0.1.0"
 
-# TOOLS
+packages = [
+    { include = "neural_style_transfer_api", from = "src" },
+]
+
+description = ""
+authors = ["Konstantinos Lampridis <k.lampridis@hotmail.com>"]
+maintainers = ["Konstantinos Lampridis <k.lampridis@hotmail.com>"]
+readme = "README.md"
+# license = "AGPL-3.0-only"
+
+keywords = ["artificial intelligence", "neural style transfer", "artificial art", "deep learning", "REST API"]
+
+
+[tool.poetry.dependencies]
+
+# 3.8.0 <= python < 3.9
+python = ">=3.8, <3.9"
+
+# 0.104.1 <= fastapi < 0.105.0
+fastapi = "~0.104.1"
+
+# 0.24.0.post1 <= uvicorn < 0.25.0
+uvicorn = {extras = ["standard"], version = "^0.24.0.post1"}
+
+# 12.0 <= websockets < 13.0
+websockets = "^12.0"
+
+artificial-artwork = "^1.1.0"
+
+## Dev Tools Config ##
+python-multipart = "^0.0.6"
 
 [tool.black]
 line-length = 95
@@ -17,8 +46,18 @@ extend-exclude = '''
 # A regex preceeded with ^/ will apply only to files and directories
 # in the root of the project.
 # ^/foo.py  # exclude a file named foo.py in the root of the project (in addition to the defaults)
+tests/smoke_test.py|
+hooks/post_gen_project.py
 '''
-
 
 [tool.isort]
 profile = 'black'
+
+[tool.software-release]
+version_variable = "src/neural_style_transfer_api/__version__.py:__version__"
+
+[tool.bandit]
+tests = []
+skips = [
+    "B101",
+]
