@@ -12,7 +12,7 @@ set -e
 
 
 
-python -m uvicorn --host 0.0.0.0 --reload-dir src/neural_style_transfer_api --reload neural_style_transfer_api.app_instance:app
+python -m uvicorn --host 0.0.0.0 --reload-dir src/neural_style_transfer_api --reload neural_style_transfer_api.main:app
 
 # python -m uvicorn neural_style_transfer_api.main:app --host --reload --reload-dir src/neural_style_transfer_api
 
