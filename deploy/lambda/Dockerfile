@@ -1,17 +1,33 @@
-FROM public.ecr.aws/lambda/python:3.8
+FROM public.ecr.aws/lambda/python:3.8 as base
+
+# Determine where to install poetry
+ENV POETRY_HOME=/opt/poetry
+
+# Install Poetry
+RUN python -c 'from urllib.request import urlopen; print(urlopen("https://install.python-poetry.org").read().decode())' | python
+
+# Generate requirements.txt from poetry format
+COPY poetry.lock pyproject.toml ./
+RUN "$POETRY_HOME/bin/poetry" export -f requirements.txt  -E lambda > /tmp/requirements.txt
+
+
+FROM public.ecr.aws/lambda/python:3.8 as install
+# LAMBDA_TASK_ROOT : /var/task
+
+COPY --from=base /tmp/requirements.txt /tmp/requirements.txt
 
 # Copy requirements.txt
-# COPY requirements.txt ${LAMBDA_TASK_ROOT}
+COPY /tmp/requirements.txt ${LAMBDA_TASK_ROOT}
 
 # Install the specified packages
-# RUN pip install -r requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
 # Copy function code
-COPY app.py ${LAMBDA_TASK_ROOT}
-# LAMBDA_TASK_ROOT is ie /var/task
+COPY deploy/lambda/app.py ${LAMBDA_TASK_ROOT}
 
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
 CMD [ "app.handler" ]
+
 
 ## How to Build
 # docker build --platform linux/amd64 -t docker-image:test .

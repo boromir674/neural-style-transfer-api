@@ -22,11 +22,25 @@ COPY --from=base requirements.txt ${LAMBDA_TASK_ROOT}
 # Install the specified packages
 RUN pip install -r ${LAMBDA_TASK_ROOT}/requirements.txt
 
+COPY --from=base pyproject.toml .
+COPY --from=base poetry.lock .
+COPY src src
+COPY README.md README.md
+RUN pip install .
+
+COPY deploy/lambda/lambda_function.py ${LAMBDA_TASK_ROOT}
+CMD [ "lambda_function.handler" ]
+
+# test:
+# curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"resource": "/", "path": "/api/v1/test/", "httpMethod": "GET", "requestContext": {}, "multiValueQueryStringParameters": null}'
+
+
 # Copy function code
-COPY deploy/lambda/app.py ${LAMBDA_TASK_ROOT}
+# COPY deploy/lambda/app.py ${LAMBDA_TASK_ROOT}
 
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
-CMD [ "app.handler" ]
+# CMD [ "app.handler" ]
+
 
 
 ## How to Build
@@ -39,5 +53,5 @@ CMD [ "app.handler" ]
 # docker run -it --rm -p 9000:8080 docker-image:test
 
 # curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
-
+# curl "http://localhost:8001/2015-03-31/functions/function/invocations"
 # curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"payload":"hello world!"}'

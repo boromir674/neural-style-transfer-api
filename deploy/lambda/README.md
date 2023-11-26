@@ -19,9 +19,10 @@ is already built inside the image, so we don't need to prepare anything.
 Spin-up Lambda locally:  `docker run -it --rm -p 9000:8080 docker-image:test`
 
 ```shell
-curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
-curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"payload":"hello world!"}'
+curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"resource": "/", "path": "/", "httpMethod": "GET", "requestContext": {}, "multiValueQueryStringParameters": null}'
 ```
+
+`curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'`
 
 ### Deploy
 Upload to ECR and then deploy to Lambda.
