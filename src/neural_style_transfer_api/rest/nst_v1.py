@@ -92,3 +92,13 @@ async def neural_style_transfer_endpoint(
     
     image_path: str = f"/tmp/{content_image.filename}+{style_image.filename}-{params.iterations}.png"
     return FileResponse(image_path, media_type="image/png")
+
+
+"""
+curl -X 'POST' \
+  'http://127.0.0.1:8001/nst-rest?ratio=0.6&iterations=10' \
+  -H 'accept: image/png' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'content_image=@canoe_water_w300-h225.jpg;type=image/jpeg' \
+  -F 'style_image=@blue-red_w300-h225.jpg;type=image/jpeg'
+"""
